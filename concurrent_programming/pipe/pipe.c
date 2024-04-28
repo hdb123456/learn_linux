@@ -6,8 +6,8 @@
 void write_from_pipe(int file)
 {
 	FILE *stream;
-	stream=fdopen(file,"w");
-	fprintf(stream,"hello world\n");
+	stream=fdopen(file,"w");//open the FIFO in write-only mode ,the return value is a pointer to the file stream
+	fprintf(stream,"hello world\n");// input strings by a stream pointer
 	fclose(stream);
 }
 void read_from_pipe(int file)
@@ -16,7 +16,7 @@ void read_from_pipe(int file)
 	int c;
 	stream=fdopen(file,"r");
 	while((c=fgetc(stream))!=EOF)
-					putchar(c);
+		putchar(c);
 	fclose(stream);
 }
 
