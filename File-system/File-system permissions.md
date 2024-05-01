@@ -1,5 +1,6 @@
 #[forward (a shipment) ] (https://www.redhat.com/sysadmin/linux-file-permissions-explained)
-#instances:
+
+#instances:  
 操作文件或目录的用户，有3种不同类型：文件所有者、群组用户、其他用户
 chmod  754  filename
 r	4	00000100	read，读取。当前用户可以读取文件内容，当前用户可以浏览目录。
