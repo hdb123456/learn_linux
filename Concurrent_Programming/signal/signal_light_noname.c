@@ -1,4 +1,8 @@
 #include <stdio.h>
+#include <sys/ipc.h>
+#include <semaphore.h>
+#include <sys/sem.h>
+
 /*ftok
 
 
@@ -9,6 +13,8 @@
 
 int main()
 {   
+    key=ftok(".",1);
+    semget(key,)
     sem_init();
 
     sem_wait();
