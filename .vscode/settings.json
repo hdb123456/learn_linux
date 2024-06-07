@@ -4,7 +4,8 @@
         "sem_init": "c",
         "semaphore.h": "c",
         "ipc.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "curses.h": "c"
     },
     "code-runner.executorMap": {
 
