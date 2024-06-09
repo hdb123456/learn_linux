@@ -31,20 +31,20 @@ int main (){
     act.sa_handler=handle;
     act.sa_flags =0;
     sigemptyset(&act.sa_mask);
-    sigaction(SIGINT,&act,NULL);
+    sigaction(SIGALRM,&act,NULL);
     
 //    alarm(1);
 //    sigaction(SIGALRM,&act,NULL);
-/*
-struct itimerval timevalue;
-timevalue.it_interval.tv_sec=0;
-timevalue.it_interval.tv_usec=1;
-timevalue.it_value.tv_sec=5;
-timevalue.it_value.tv_usec=0;
 
-setitimer(ITIMER_REAL,const struct itimerval *new_value,struct itimerval *old_value);
-sigaction(SIGALRM,&act,NULL);
-*/
+struct itimerval timevalue;
+timevalue.it_interval.tv_sec=1;
+timevalue.it_interval.tv_usec=0;
+timevalue.it_value.tv_sec=1;
+timevalue.it_value.tv_usec=0;
+setitimer(ITIMER_REAL,&timevalue,NULL);
+
+//sigaction(SIGALRM,&act,NULL);
+
 while(1)
 {
  //   sleep(1);
