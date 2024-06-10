@@ -5,7 +5,9 @@
         "semaphore.h": "c",
         "ipc.h": "c",
         "string.h": "c",
-        "curses.h": "c"
+        "curses.h": "c",
+        "time.h": "c",
+        "algorithm": "c"
     },
     "code-runner.executorMap": {
 
