@@ -238,7 +238,7 @@ void clear_pipe()//清除管道
 		refresh();
 		p = p->next;
 	}
- 
+
 }
 void move_pipe()//移动管道
 {
