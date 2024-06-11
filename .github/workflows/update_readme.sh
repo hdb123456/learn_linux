@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# 配置 Git 用户名和邮箱
+git config --global user.email "2755631915@qq.com"
+git config --global user.name "hdb123456"
+
 # 生成目录结构
 tree > directory.md
 
@@ -11,8 +15,6 @@ echo "" >> README.md
 cat directory.md >> README.md
 
 # 提交更改到仓库
-git config --global user.email "actions@github.com"
-git config --global user.name "GitHub Actions"
 git add README.md
 git commit -m "Update directory structure in README"
 git push
