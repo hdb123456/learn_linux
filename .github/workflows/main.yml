@@ -9,10 +9,17 @@ jobs:
   update_readme:
     runs-on: ubuntu-latest
     
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
       
+    - name: Set up Git
+      run: |
+        git config --global user.email "${GITHUB_ACTOR_EMAIL}"
+        git config --global user.name "${GITHUB_ACTOR}"
+
     - name: Run update_readme.sh script
       run: bash ./.github/workflows/update_readme.sh
-      
