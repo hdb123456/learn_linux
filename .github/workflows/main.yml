@@ -7,11 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # 替换为您的 Python 版本
     - name: Generate directory tree
       run: |
-        # 这里运行您的脚本以生成目录树
-        # 假设脚本名为 generate_tree.py
-        python generate_tree.py > README.md
+        python generate_tree.py
     - name: Commit and push changes
       run: |
         git config --global user.name 'GitHub Actions'
