@@ -16,24 +16,5 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Set up Git
-      run: |
-        git config --global user.email "2755631915@qq.com"
-        git config --global user.name "hdb123456"
-        # 生成目录结构
-        tree > directory.md
-    
-        # 更新 README.md
-        echo "# Directory Structure" > README.md
-        echo "" >> README.md
-        echo "Generated at: $(date)" >> README.md
-        echo "" >> README.md
-        cat directory.md >> README.md
-    
-        # 提交更改到仓库
-        git add README.md
-        git commit -m "Update directory structure in README"
-        # 使用个人访问令牌
-        echo "Token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}" >>$GITHUB_ENV
-        echo "https://${GITHUB_ACTOR}:${secrets.PERSONAL_ACCESS_TOKEN}@github.com" | git config --global user.url
-        git push
+
 
