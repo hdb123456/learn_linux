@@ -17,4 +17,7 @@ cat directory.md >> README.md
 # 提交更改到仓库
 git add README.md
 git commit -m "Update directory structure in README"
+# 使用个人访问令牌
+    echo "Token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}" >>$GITHUB_ENV
+    echo "https://${GITHUB_ACTOR}:${secrets.PERSONAL_ACCESS_TOKEN}@github.com" | git config --global user.url
 git push
