@@ -36,3 +36,4 @@ jobs:
         echo "Token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}" >>$GITHUB_ENV
         echo "https://${GITHUB_ACTOR}:${secrets.PERSONAL_ACCESS_TOKEN}@github.com" | git config --global user.url
         git push
+
