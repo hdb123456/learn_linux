@@ -13,17 +13,17 @@ jobs:
         git config --global user.email "2755631915@qq.com"
         git config --global user.name "hdb123456"
         # 生成目录结构
-        tree > directory.md
+        tree > directory.txt
 
-    - name: Update README.md
+    - name: Update structure.txt
       run: |
-        echo "# Directory Structure" > README.md
-        echo "" >> README.md
-        echo "Generated at: $(date -R)" >> README.md
-        echo "" >> README.md
-        cat directory.md >> README.md
-        git add README.md
-        git commit -m "Update directory structure in README"
+        echo "# Directory Structure" > structure.txt
+        echo "" >> structure.txt
+        echo "Generated at: $(date -R)" >> structure.txt
+        echo "" >> structure.txt
+        cat directory.txt >> structure.txt
+        git add structure.txt
+        git commit -m "Update directory structure in structure.txt"
 
     - name: Push Changes
       run: |
