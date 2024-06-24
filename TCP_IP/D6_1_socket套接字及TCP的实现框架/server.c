@@ -3,7 +3,7 @@
 #include "arpa/inet.h"
 #include "stdio.h"
 #include "unistd.h"
-
+#include "string.h"
 
 struct sockaddr_in{
     sa_family_t sin_family;
@@ -60,16 +60,20 @@ int main (int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
     char buf[BUFSIZ]={0};
-    ssize_t bytes_read = read(fd,buf,BUFSIZ);
-    if(bytes_read==-1){
-        fprintf(stderr,"read ERROR:%s\n",strrerror(error));
-        exit(EXIT_FAILURE);
+    while(1)
+    {
+        memset(buf,0,BUFSIZ);
+        ssize_t bytes_read = read(fd,buf,BUFSIZ);
+        if(bytes_read==-1){
+            fprintf(stderr,"read ERROR:%s\n",strrerror(error));
+            exit(EXIT_FAILURE);
+        }
+        else{
+            printf("recv:%s\n",buf);
+        }
     }
-    else{
-        printf("recv:%s\n",buf);
-    }
-
     close(fd);
+    close(sockfd);
 }
 /*test */
 /*
