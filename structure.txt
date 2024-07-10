@@ -1,6 +1,6 @@
 # Directory Structure
 
-Generated at: Mon, 24 Jun 2024 09:57:42 +0000
+Generated at: Wed, 10 Jul 2024 10:39:41 +0000
 
 .
 ├── COMMAND
@@ -69,18 +69,25 @@ Generated at: Mon, 24 Jun 2024 09:57:42 +0000
 │   ├── example.sh
 │   └── search_file.sh
 ├── TCP_IP
-│   └── D6_1_socket套接字及TCP的实现框架
-│       ├── Function.md
-│       ├── TCP
-│       │   ├── Makefile
-│       │   ├── client
-│       │   ├── client.c
-│       │   ├── image.png
-│       │   ├── server
-│       │   └── server.c
-│       ├── TCP.zip
-│       ├── frame.md
-│       └── 套接字socket及TCP的实现框架.pptx
+│   ├── D6_1_socket套接字及TCP的实现框架
+│   │   ├── Function.md
+│   │   ├── TCP
+│   │   │   ├── Makefile
+│   │   │   ├── client
+│   │   │   ├── client.c
+│   │   │   ├── image.png
+│   │   │   ├── server
+│   │   │   └── server.c
+│   │   ├── TCP.zip
+│   │   ├── frame.md
+│   │   └── 套接字socket及TCP的实现框架.pptx
+│   ├── Makefile
+│   ├── bind.txt
+│   ├── multi_process_client
+│   ├── multi_process_client.c
+│   ├── multi_process_server
+│   ├── multi_process_server.c
+│   └── socket.txt
 ├── directory.txt
 ├── extra.md
 ├── flappy_bird
@@ -95,4 +102,4 @@ Generated at: Mon, 24 Jun 2024 09:57:42 +0000
 │   └── warning.md
 └── structure.txt
 
-24 directories, 67 files
+24 directories, 74 files
