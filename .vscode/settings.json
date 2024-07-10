@@ -8,7 +8,8 @@
         "curses.h": "c",
         "time.h": "c",
         "algorithm": "c",
-        "tcp_connect": "c"
+        "tcp_connect": "c",
+        "io_context": "c"
     },
     "code-runner.executorMap": {
 
