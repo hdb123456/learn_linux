@@ -15,29 +15,9 @@ int main (int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
     /*create socket*/
-    int sockfd = socket(AF_INET,SOCK_STREAM,0);
-    if(sockfd == -1)
-    {
-        fprintf(stderr,"socket ERROR:%s\n",strerror(errno));
-        exit(EXIT_FAILURE);
-    }
+    int sockfd=create_socket;
     /*bind socket*/
-    struct sockaddr_in addr;
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(atoi(argv[2]));//将主机字节序转为网络字节序大端,头文件为#include "arpa/inet.h"
-    //addr.sin_addr.s_addr = argv[0];//INADDR_ANY是一个预定义的常量，其值通常为0，表示套接字将绑定到本机的所有IP地址上
-    int exchange = inet_aton(argv[1], &addr.sin_addr);
-    if(exchange == 0)
-    {
-        printf("error inet_aton\n");
-        exit(EXIT_FAILURE);
-    }
-    int ret_bind = bind(sockfd, (struct sockaddr *)&addr, sizeof(addr));
-    if(ret_bind == -1)
-    {
-        fprintf(stderr,"bind ERROR:%s\n",strerror(errno));
-        exit(EXIT_FAILURE);
-    }
+   bind_address(&sockfd,argv);
     /*listen socket*/
     int listen_ret = listen(sockfd,5);
     if(listen_ret == -1)
@@ -69,13 +49,33 @@ int main (int argc, char* argv[])
     close(fd);
     close(sockfd);
 }
-/*test */
-/*
-```bash 1
-    gcc TCP_connect.c -o TCP_connect
-    ./TCP_connect
-```
-```bash 2
-    nc 127.0.0.1 8080
-    hello world
-*/
+
+int create_socket()
+{
+    int sockfd = socket(AF_INET,SOCK_STREAM,0);
+    if(sockfd == -1)
+    {
+        fprintf(stderr,"socket ERROR:%s\n",strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+    return sockfd;
+}
+void bind_address(int sockfd,char* argv[])
+{
+    struct sockaddr_in addr;
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(atoi(argv[2]));//将主机字节序转为网络字节序大端,头文件为#include "arpa/inet.h"
+    //addr.sin_addr.s_addr = argv[0];//addr.sin_addr.s_addr=INADDR_ANY,INADDR_ANY是一个预定义的常量，其值通常为0，表示套接字将绑定到本机的所有IP地址上
+    int exchange = inet_aton(argv[1], &addr.sin_addr);
+    if(exchange == 0)
+    {
+        printf("error inet_aton\n");
+        exit(EXIT_FAILURE);
+    }
+    int ret_bind = bind(sockfd, (struct sockaddr *)&addr, sizeof(addr));
+    if(ret_bind == -1)
+    {
+        fprintf(stderr,"bind ERROR:%s\n",strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+}
