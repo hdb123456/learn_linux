@@ -65,18 +65,20 @@ void recv_data(int server_fd,int client_fd)
 		check("accept", server_fd, client_fd);
 	}
 	printf("client connect\n");
-	//char buf[BUFSIZ]={0};
-	char buf[1024] = {0};
+	char buf[BUFSIZ]={0};
+
 	while(1)
 	{	
 #if N == 1
+
     int len1 = recv(client_fd, buf, sizeof(buf), 0);
     if (len1 < 0) {
         check("recv", server_fd, client_fd);
-    } else {
-        printf("recv: %s\n", buf);
-        // send(client_fd, buf, len1, 0);
     }
+	printf("recv: %s", buf);
+	memset(buf,0,BUFSIZ);
+	// send(client_fd, buf, len1, 0);
+    
 #else
 		memset(buf,0,BUFSIZ);
 		ssize_t bytes_read = read(client_fd,buf,BUFSIZ);
