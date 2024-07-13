@@ -9,14 +9,17 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <signal.h>
+#include <sys/wait.h>
 
 uint16_t sockConnect=-1;
 uint8_t server_fd = -1;
 
 void Call_handle(void);
 void handle_SIGINT(int sig);
-int init(int server_fd);
+void handle_SIGCHLD(int sig);
+int init(int server_fd, char* argv[]);
 bool conmmunication(int server_fd);
+void client_handle(struct sockaddr_in client_addr);
 
 //#ifdef N
 #define N 1
@@ -25,20 +28,19 @@ bool conmmunication(int server_fd);
 int main (int argc,char *argv[])
 {	
 	Call_handle();
-	bool flag = init(server_fd);
+	bool flag = init(server_fd,argv);
 	if(flag==0)
 	{
 		perror("init");
 		close(server_fd);
 		exit(EXIT_FAILURE);
 	}
-	
 	return 0;
 }
-int init(int server_fd)
+int init(int server_fd, char* argv[])
 {	
 	struct sockaddr_in server_addr;
-	uint8_t on = 1;
+	int on = 1;
 	server_fd = socket(AF_INET, SOCK_STREAM, 0);
 	if(server_fd<0)
 	{
@@ -46,23 +48,23 @@ int init(int server_fd)
 		exit(EXIT_FAILURE);
 	}
 	/*地址快速重用*/
-	// if(setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on))==-1)
-	// {
-	// 	perror("setsockopt");
-	// 	return 0;
-	// }
+	if(setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on))==-1)
+	{
+		perror("setsockopt");
+		return 0;
+	}
 	memset(&server_addr, 0, sizeof(struct sockaddr_in));
 	/* 设置服务器地址结构体的成员 */
 	server_addr.sin_family = AF_INET;
-	server_addr.sin_port = htons(8080);//htons(atoi(argv[2]))
+	server_addr.sin_port = htons(atoi(argv[2]));//htons(8080)
 	#if N==1 
-	server_addr.sin_addr.s_addr = htonl(INADDR_ANY);//inet_addr(argv[1])
-	#else
 		if ( inet_aton(argv[1], &server_addr.sin_addr)==0)
-		{
-			perror("inet_aton");
-			return 0;
-		}
+			{
+				perror("inet_aton");
+				return 0;
+			}
+	#else
+			server_addr.sin_addr.s_addr = htonl(INADDR_ANY);//inet_addr(argv[1])
 	#endif
 	/*将套接字绑定到服务器地址上*/
 	if(-1==bind( server_fd, (struct sockaddr *)&server_addr, sizeof(server_addr) ))
@@ -83,12 +85,11 @@ int init(int server_fd)
 
 bool conmmunication(int server_fd)
 {
-
+	pid_t pid;
 	struct sockaddr_in client_addr;
 	socklen_t len = sizeof(client_addr);
 	while(1)
 	{	
-		printf("---------------wait for client---------------\n");
 		sockConnect = accept(server_fd, (struct sockaddr *)&client_addr, &len);
 		if(sockConnect<0)
 		{
@@ -96,9 +97,8 @@ bool conmmunication(int server_fd)
 			return 0;
 		}
 		uint8_t sendBuf[100]={0};
-		printf("---------------client connected---------------\n");
-		sprintf(sendBuf,"welcome client(%s) to server!",inet_ntoa(client_addr.sin_addr));
-		
+		printf("---------------client ip(%s) port(%d) to server---------------\n",inet_ntoa(client_addr.sin_addr),ntohs(client_addr.sin_port));
+		sprintf(sendBuf,"welcome client ip(%s) port(%d) to server!",inet_ntoa(client_addr.sin_addr),ntohs(client_addr.sin_port));
 		ssize_t check = send(sockConnect, sendBuf, strlen(sendBuf)+1, 0);//发送字符串给客户端
 
 		if(check == -1)
@@ -107,8 +107,29 @@ bool conmmunication(int server_fd)
 			close(sockConnect);
 			return 0;
 		}
-		uint8_t recvbuf[BUFSIZ]={0};
-		while(1)
+		if((pid=fork())==-1)
+		{
+			perror("fork");
+			close(sockConnect);
+			return 0 ;
+		}
+		else if(pid ==0){
+			close(server_fd);
+			client_handle(client_addr);
+			exit(0);
+		}
+		else if(pid > 0)
+		{
+			close(sockConnect);
+			//exit (EXIT_SUCCESS);
+		}
+	}
+}
+
+void client_handle(struct sockaddr_in client_addr)
+{
+	uint8_t recvbuf[BUFSIZ]={0};
+	while(1)
 		{	
 			memset(recvbuf,0,BUFSIZ);
 		#if N == 1
@@ -117,11 +138,11 @@ bool conmmunication(int server_fd)
 			{
 				perror("recv");
 				close(sockConnect);
-				return 0;
+				break;
 			}
 			else if(len == 0)
 			{
-				printf("client disconnected\n");
+				printf("---------------client ip(%s) port(%d) disconnected!---------------\n",inet_ntoa(client_addr.sin_addr),ntohs(client_addr.sin_port));
 				close(sockConnect);
 				break;
 			}
@@ -141,18 +162,22 @@ bool conmmunication(int server_fd)
 				}
 		#endif
 		}
-		
-	}
 }
-
 
 void Call_handle(void)
 {
-	struct sigaction act;
-	act.sa_handler = handle_SIGINT;
-	act.sa_flags = 0;
-	sigemptyset(&act.sa_mask);
-	sigaction(SIGINT, &act, NULL);
+	struct sigaction act1;
+	act1.sa_handler = handle_SIGINT;
+	act1.sa_flags = 0;
+	sigemptyset(&act1.sa_mask);
+	sigaction(SIGINT, &act1, NULL);
+
+	struct sigaction act2;
+	act2.sa_handler = handle_SIGCHLD;
+	act2.sa_flags = SA_RESTART;
+	sigemptyset(&act2.sa_mask);
+	sigaction(SIGCHLD, &act2, NULL);
+
 }
 
 void handle_SIGINT(int sig){
@@ -162,7 +187,12 @@ void handle_SIGINT(int sig){
 	if(server_fd>0){
 		close(server_fd);
 	}
-
-	printf("SIGINT\n");
 	exit(EXIT_SUCCESS);
+}
+
+void handle_SIGCHLD(int sig)
+{
+	if(sig == SIGCHLD)
+	while(waitpid(-1,NULL,WNOHANG)>0);
+	
 }
