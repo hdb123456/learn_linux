@@ -53,7 +53,7 @@ int main() {
 
     sigprocmask(SIG_UNBLOCK, &act.sa_mask, NULL);  // 解除对 SIGINT 信号的阻塞
   //  sigsuspend(&act.sa_mask);
-
+  
     // 进入一个无限循环
     while(1)
     {
@@ -64,21 +64,3 @@ int main() {
 }
 
 
-/*
-ChatGPT
-你的代码中，sigsuspend(&act.sa_mask) 会暂停进程直到接收到信号，然后恢复信号屏蔽。当你按下 Ctrl+C（发送 SIGINT）时，它会中断 sleep 并触发信号处理函数 handle。在 handle 执行完毕后，进程进入 sigsuspend(&act.sa_mask)，等待另一个信号。然而，在此等待期间，你进入了无限循环。
-
-在循环中，你调用 sleep，这会让进程再次进入睡眠状态，从而有效地阻止了进一步的信号处理，直到它再次唤醒。这种行为阻止了第二次按下 Ctrl+C 时触发信号处理函数。
-
-当你移除 sigsuspend(&act.sa_mask) 时，程序在解除对 SIGINT 的阻塞后立即进入无限循环。这个循环不断调用 sleep，允许每次按下 Ctrl+C 时都执行信号处理函数。
-
-简而言之，使用 sigsuspend(&act.sa_mask)，第二次按下 Ctrl+C 时信号处理函数不会执行，因为进程在再次处理信号之前已经进入了无限循环。
-
-
-您
-那为什么去掉sigsuspend(&mask)可以
-ChatGPT
-ChatGPT
-如果你去掉了 sigsuspend(&mask)，程序将会直接进入无限循环，这意味着在接触对 SIGINT 的阻塞后，程序会一直循环调用 sleep，永远不会暂停执行，也不会进入等待另一个信号的状态。因此，每当你按下 Ctrl+C 时，程序都会执行信号处理函数，因为没有其他的操作在阻碍它们的执行。
-
-总的来说，移除 sigsuspend(&mask) 会让程序不再等待信号，直接进入循环，这样就会执行信号处理函数，而不会被无限循环中的睡眠所阻塞。*/

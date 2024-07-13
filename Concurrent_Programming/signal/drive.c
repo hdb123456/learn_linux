@@ -21,6 +21,46 @@
 #include <signal.h>
 #include <unistd.h>
 
+
+void handle(int si);
+   
+int main() {
+ struct sigaction act,old_act;
+    act.sa_handler = handle;    // 设置信号处理函数为 handle
+    act.sa_flags = 0;
+    // 清空信号屏蔽集
+    sigemptyset(&act.sa_mask);  
+    // 捕获 SIGINT 信号，并指定处理函数为 handle,当信号发生时，传递给内核,内核调用handle函数
+    sigaction(SIGINT, &act, NULL); 
+
+    /* 初始化信号屏蔽集 */   
+    sigset_t mask,mask1;
+    sigemptyset(&mask);
+    sigemptyset(&mask1);
+    sigaddset(&mask, SIGINT);   // 将 SIGINT 信号添加到信号屏蔽集,注意这里只是添加到信号屏蔽集，并没有屏蔽信号，要对这个信号屏蔽集进行应用，例如sigprocmask
+
+    pause();
+
+    while(1)
+    {
+      sigprocmask(SIG_BLOCK, &mask, NULL);  // 阻塞 SIGINT 信号,之后处理
+      printf("hello\n");
+      sleep(5);
+      printf("world\n");
+
+
+      //sigsuspend(&mask1);//暂时改变信号掩码为mask，并挂起等待未被mask1屏蔽的信号
+
+      /*sigprocmask解除对 SIGINT 信号的阻塞，后立刻响应SIGINT信号，pause将不会被触发*/
+      // sigprocmask(SIG_UNBLOCK, &mask, NULL); 
+      // pause();
+    }
+
+    return 0; 
+}
+
+
+
 void handle(int si) {
     printf("get sig:%d\n", si);
 }
@@ -34,31 +74,9 @@ struct sigaction {
 }*/
 
 
-int main() {
-    struct sigaction act;
-    act.sa_handler = handle;    // 设置信号处理函数为 handle
-    act.sa_flags = 0;
-    sigemptyset(&act.sa_mask);  // 清空信号屏蔽集
-    sigemptyset(&act.sa_mask+1);
-    sigaction(SIGINT, &act, NULL); // 捕获 SIGINT 信号，并指定处理函数为 handle
 
-    /* 初始化信号屏蔽集 */   
-    //sigset_t mask;
-   // sigemptyset(&act.sa_mask);
-    sigaddset(&act.sa_mask, SIGINT);   // 将 SIGINT 信号添加到信号屏蔽集
-    pause();
-    // 进入一个无限循环
-    while(1)
-    {
-      sigprocmask(SIG_BLOCK, &act.sa_mask, NULL);  // 阻塞 SIGINT 信号
-      printf("hello\n");
-      sleep(5);
-      printf("world\n");
-      sigsuspend(&act.sa_mask+1);
-      // sigprocmask(SIG_UNBLOCK, &act.sa_mask, NULL);  // 解除对 SIGINT 信号的阻塞
-      // printf("world\n");
-      // pause();//探针，等待信号，接受到信号后内核会调用信号处理函数由main函数执行
-    }
-
-    return 0; 
-}
+/*保存当前进程的信号掩码（即当前哪些信号被阻止）。
+将mask参数指定的信号掩码应用到当前进程中（即暂时改变信号掩码为mask。）
+进程挂起，等待一个未被mask屏蔽的信号。
+当一个未被屏蔽的信号到达时，sigsuspend函数返回，同时恢复原先的信号掩码。
+*/
