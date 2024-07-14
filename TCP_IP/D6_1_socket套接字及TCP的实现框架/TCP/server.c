@@ -29,7 +29,8 @@ int main (int argc, char* argv[])
     struct sockaddr_in client_addr;
     socklen_t len = sizeof(client_addr);
     int fd = accept(sockfd, (struct sockaddr *)&client_addr, &len);
-    if(fd==-1){
+    if(fd==-1)
+    {
         fprintf(stderr,"accept ERROR:%s\n",strerror(errno));
         exit(EXIT_FAILURE);
     }
