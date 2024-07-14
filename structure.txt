@@ -1,6 +1,6 @@
 # Directory Structure
 
-Generated at: Sat, 13 Jul 2024 12:45:42 +0000
+Generated at: Sun, 14 Jul 2024 06:50:30 +0000
 
 .
 ├── COMMAND
@@ -83,14 +83,24 @@ Generated at: Sat, 13 Jul 2024 12:45:42 +0000
 │   │   ├── TCP.zip
 │   │   ├── frame.md
 │   │   └── 套接字socket及TCP的实现框架.pptx
-│   └── Multi_process_communication
-│       ├── Makefile
-│       ├── bind.txt
-│       ├── multi_process_client
-│       ├── multi_process_client.c
-│       ├── multi_process_server
-│       ├── multi_process_server.c
-│       └── socket.txt
+│   ├── Multi_process_communication
+│   │   ├── Makefile
+│   │   ├── bind.txt
+│   │   ├── multi_process_client
+│   │   ├── multi_process_client.c
+│   │   ├── multi_process_server
+│   │   ├── multi_process_server.c
+│   │   └── socket.txt
+│   ├── Multi_thread_communication
+│   │   ├── Makefile
+│   │   ├── multi_thread_client
+│   │   ├── multi_thread_client.c
+│   │   ├── multi_thread_client.o
+│   │   ├── multi_thread_server
+│   │   ├── multi_thread_server.c
+│   │   ├── multi_thread_server.o
+│   │   └── result.png
+│   └── Multi_thread_communication.zip
 ├── directory.txt
 ├── extra.md
 ├── flappy_bird
@@ -105,4 +115,4 @@ Generated at: Sat, 13 Jul 2024 12:45:42 +0000
 │   └── warning.md
 └── structure.txt
 
-25 directories, 76 files
+26 directories, 85 files
