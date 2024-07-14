@@ -28,3 +28,6 @@ jobs:
     - name: Push Changes
       run: |
         git push origin main
+    - name: pull changes
+      run: |
+        git pull --rebase origin main
