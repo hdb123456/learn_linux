@@ -1,6 +1,6 @@
 # Directory Structure
 
-Generated at: Sun, 14 Jul 2024 06:50:30 +0000
+Generated at: Sun, 14 Jul 2024 10:29:38 +0000
 
 .
 ├── COMMAND
@@ -70,37 +70,6 @@ Generated at: Sun, 14 Jul 2024 06:50:30 +0000
 ├── Shell
 │   ├── example.sh
 │   └── search_file.sh
-├── TCP_IP
-│   ├── D6_1_socket套接字及TCP的实现框架
-│   │   ├── Function.md
-│   │   ├── TCP
-│   │   │   ├── Makefile
-│   │   │   ├── client
-│   │   │   ├── client.c
-│   │   │   ├── image.png
-│   │   │   ├── server
-│   │   │   └── server.c
-│   │   ├── TCP.zip
-│   │   ├── frame.md
-│   │   └── 套接字socket及TCP的实现框架.pptx
-│   ├── Multi_process_communication
-│   │   ├── Makefile
-│   │   ├── bind.txt
-│   │   ├── multi_process_client
-│   │   ├── multi_process_client.c
-│   │   ├── multi_process_server
-│   │   ├── multi_process_server.c
-│   │   └── socket.txt
-│   ├── Multi_thread_communication
-│   │   ├── Makefile
-│   │   ├── multi_thread_client
-│   │   ├── multi_thread_client.c
-│   │   ├── multi_thread_client.o
-│   │   ├── multi_thread_server
-│   │   ├── multi_thread_server.c
-│   │   ├── multi_thread_server.o
-│   │   └── result.png
-│   └── Multi_thread_communication.zip
 ├── directory.txt
 ├── extra.md
 ├── flappy_bird
@@ -113,6 +82,44 @@ Generated at: Sun, 14 Jul 2024 06:50:30 +0000
 │   ├── multi-executable-file.md
 │   ├── signal_change.md
 │   └── warning.md
-└── structure.txt
+├── structure.txt
+└── 网络编程
+    ├── TCP_IP
+    │   ├── D6_1_socket套接字及TCP的实现框架
+    │   │   ├── Function.md
+    │   │   ├── TCP
+    │   │   │   ├── Makefile
+    │   │   │   ├── client
+    │   │   │   ├── client.c
+    │   │   │   ├── image.png
+    │   │   │   ├── server
+    │   │   │   └── server.c
+    │   │   ├── TCP.zip
+    │   │   ├── frame.md
+    │   │   └── 套接字socket及TCP的实现框架.pptx
+    │   ├── Multi_process_communication
+    │   │   ├── Makefile
+    │   │   ├── bind.txt
+    │   │   ├── multi_process_client
+    │   │   ├── multi_process_client.c
+    │   │   ├── multi_process_server
+    │   │   ├── multi_process_server.c
+    │   │   └── socket.txt
+    │   ├── Multi_thread_communication
+    │   │   ├── Makefile
+    │   │   ├── multi_thread_client
+    │   │   ├── multi_thread_client.c
+    │   │   ├── multi_thread_client.o
+    │   │   ├── multi_thread_server
+    │   │   ├── multi_thread_server.c
+    │   │   ├── multi_thread_server.o
+    │   │   └── result.png
+    │   └── Multi_thread_communication.zip
+    ├── UDP
+    │   ├── Makefile
+    │   ├── result.png
+    │   ├── udp_client.c
+    │   └── udp_server.c
+    └── UDP.zip
 
-26 directories, 85 files
+28 directories, 90 files
