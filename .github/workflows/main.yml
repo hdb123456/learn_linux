@@ -24,10 +24,3 @@ jobs:
         cat directory.txt >> structure.txt
         git add structure.txt
         git commit -m "Update directory structure in structure.txt"
-
-    - name: Push Changes
-      run: |
-        git push origin main
-    - name: pull changes
-      run: |
-        git pull --rebase origin main
