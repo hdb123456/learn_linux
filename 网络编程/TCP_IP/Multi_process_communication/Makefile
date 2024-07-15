@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g
+CFLAGS=-Wall
 all: multi_process_server multi_process_client
 
 clean:

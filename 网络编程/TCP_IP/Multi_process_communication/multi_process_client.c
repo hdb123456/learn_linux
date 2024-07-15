@@ -45,9 +45,9 @@ int main (int argc, char *argv[])
     }
     
     printf("Connect to server successfully!\n");
-    char recvBuf[BUFSIZ]={0};
-    recv(sock_fd, recvBuf, sizeof(recvBuf), 0);
-    printf("receive server's msg:%s\n", recvBuf);
+    // char recvBuf[BUFSIZ]={0};
+    // recv(sock_fd, recvBuf, sizeof(recvBuf), 0);
+    // printf("receive server's msg:%s\n", recvBuf);
 
     char buf[BUFSIZ]={0};
     while(1)
@@ -55,7 +55,7 @@ int main (int argc, char *argv[])
         memset(buf, 0, sizeof(buf));
         printf("Please enter your message: ");
         fgets(buf, sizeof(buf), stdin);
-        if(send(sock_fd, buf, sizeof(buf), 0)<0)
+        if(send(sock_fd, buf, strlen(buf), 0)<0)
         {
             perror("send");
             close(sock_fd);
