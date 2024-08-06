@@ -13,7 +13,7 @@ echo '$COUNT' # 强引用，打印 $COUNT
 # 删除变量
 unset COUNT
 
-# 效果相同的两种语法，命令替换
+# 等效
 A=`echo $COUNT`
 A=$(echo $COUNT)
 
@@ -76,4 +76,3 @@ echo $PWD  # 当前工作目录
 echo $PATH # 可执行用户程序的默认路径
 
 # export 将变量指定为全局变量
-
