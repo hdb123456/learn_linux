@@ -8,6 +8,6 @@ int main (int argc, char *argv[])
     listen();
     while (true) {
         accept();
-        read();`
+        read();
     }
 }
