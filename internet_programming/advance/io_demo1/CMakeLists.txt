@@ -2,11 +2,19 @@ cmake_minimum_required(VERSION 3.5)
 
 project(io_demo1)
 
-add_compile_options(-std=c++11 -Wall)
+add_compile_options(-std=c++11 -g -Wall)
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-file(GLOB SOURCES "src/*.cpp")
+file(GLOB SOURCES1 "src/tcp_server.cpp" "src/mysocket.cpp")
+file(GLOB SOURCES2 "src/tcp_client.cpp")
 
+add_executable(server ${SOURCES1})
+add_executable(client ${SOURCES2})
 
-add_executable(io_demo1 ${SOURCES})
+# 清理规则
+add_custom_target(myclean
+    COMMAND ${CMAKE_COMMAND} --build . --target clean
+    COMMENT "Cleaning build directory"
+    VERBATIM
+)
