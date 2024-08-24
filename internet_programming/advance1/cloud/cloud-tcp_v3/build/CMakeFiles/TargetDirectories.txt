@@ -1,0 +1,5 @@
+/home/mingze/文档/app/Github/learn_linux/internet_programming/advance1/cloud/cloud-tcp_v3/build/CMakeFiles/server.dir
+/home/mingze/文档/app/Github/learn_linux/internet_programming/advance1/cloud/cloud-tcp_v3/build/CMakeFiles/client.dir
+/home/mingze/文档/app/Github/learn_linux/internet_programming/advance1/cloud/cloud-tcp_v3/build/CMakeFiles/myclean.dir
+/home/mingze/文档/app/Github/learn_linux/internet_programming/advance1/cloud/cloud-tcp_v3/build/CMakeFiles/edit_cache.dir
+/home/mingze/文档/app/Github/learn_linux/internet_programming/advance1/cloud/cloud-tcp_v3/build/CMakeFiles/rebuild_cache.dir

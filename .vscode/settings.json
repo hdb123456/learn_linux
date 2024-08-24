@@ -75,5 +75,16 @@
   // 使用 code runner 作为终端
   "code-runner.runInTerminal": true,
   // 每次默认打开终端的 path 在当前打开的文件目录下
-  "code-runner.fileDirectoryAsCwd": true,
+"code-runner.fileDirectoryAsCwd": true,
+"editor.gotoLocation.alternativeDeclarationCommand": "editor.action.revealDefinition",
+"editor.gotoLocation.alternativeDefinitionCommand": "editor.action.revealDefinition",
+"editor.gotoLocation.alternativeTypeDefinitionCommand": "editor.action.revealDefinition",
+"editor.selectionHighlight": false,
+"files.autoSave": "onFocusChange",
+"editor.suggest.snippetsPreventQuickSuggestions": false,
+"editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "on"
+},
 }
